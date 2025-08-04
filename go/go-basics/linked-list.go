@@ -7,6 +7,7 @@ import (
 type Node struct {
 	data int
 	next *Node
+	prev *Node
 }
 
 type LinkedList struct {
@@ -41,6 +42,17 @@ func addToFront(list *LinkedList, a int) {
 	list.head = newNode
 }
 
+func addAfterHead(list *LinkedList, a int) {
+
+	newNode := &Node{data: a, prev: list.head, next: list.head.next}
+
+	if list.head.next != nil {
+		list.head.next.prev = newNode
+	}
+
+	list.head.next = newNode
+}
+
 func printList(list *LinkedList) {
 
 	if list.head == nil {
@@ -64,6 +76,6 @@ func main() {
 	addToEnd(list, 5)
 	addToEnd(list, 10)
 	addToFront(list, 20)
-	addToFront(list, 20)
+	addAfterHead(list, 43)
 	printList(list)
 }
